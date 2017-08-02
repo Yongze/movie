@@ -1,15 +1,30 @@
 {
   "name": "imooc",
-  "version": "0.0.1",
-  "description": "imooc movie",
+  "version": "1.0.0",
+  "description": "npm install express3 jade moment mongoose\r npm install bower -g\r bower install bootstrap\r npm install underscore",
   "main": "app.js",
+  "dependencies": {
+    "jade": "^1.11.0",
+    "express": "^3.21.2",
+    "mongoose": "^4.11.5",
+    "moment": "^2.18.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yongze/movie.git"
+  },
   "keywords": [
-    "imooc",
-    "movie"
+    "imooc"
   ],
   "author": "yw850",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Yongze/movie/issues"
+  },
+  "homepage": "https://github.com/Yongze/movie#readme"
 }
