@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-07-31 21:16:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-02 23:37:30
+* @Last Modified time: 2017-08-05 15:29:35
 */
 
 'use strict';
@@ -11,137 +11,40 @@ var port = process.env.PORT || 3000
 var app = express()
 // var path = require('path')
 var mongoose = require('mongoose')
-var Movie = require('./models/movie.js')
-var _ = require('underscore')
+var mongoStore = require('connect-mongo')(express)
 
-mongoose.connect('mongodb://localhost/imooc')
+var dbUrl = 'mongodb://localhost/imooc'
+mongoose.connect(dbUrl)
 
-app.set('views','./views/pages')
+app.set('views','./app/views/pages')
 app.set('view engine', 'jade')
+// 中间件能见post的内容初始化成一个对象
 app.use(express.bodyParser())
 app.use(express.static('public'))
+app.locals.moment = require('moment')
+app.use(express.cookieParser())
+app.use(express.session({
+	secret: 'imooc',
+	store : new mongoStore({
+		url: dbUrl,
+		connection: 'sessions'
+	})
+}))
+
+if ('development' === app.get('env')) {
+	// 屏幕上打印错误信息
+	app.set('showStackError', true)
+	// 'dev' 
+	app.use(express.logger(':method :url :status'))
+	// 页面源码格式化后的，而不是压缩
+	app.locals.pretty = true
+	// 通过mongoose debug
+	mongoose.set('debug', true)
+}
+
+require('./config/routes.js')(app)
 app.listen(port)
 console.log('imooc start on port ' + port)
 
-// index page
-app.get('/', function(req, res){
-	Movie.fetch(function(err,movies){
-		if (err) {
-			console.log(err)
-		}
-		res.render('index', {
-			title: 'imooc Home',
-			movie: movies
-		})
-	})
-})
-// detail page
-app.get('/movie/:id', function(req, res){
-	var id = req.params.id
 
-	Movie.findById(id, function(err, movie){
-		res.render('detail', {
-			title: 'imooc ' + movie.title,
-			movie: movie
-		})
-	})
-})
-// admin update movie
-app.get('/admin/update/:id', function(req, res){
-	var id = req.params.id
 
-	if (id) {
-		Movie.findById(id, function(err, movie){
-			res.render('admin', {
-				title: 'imooc admin update',
-				movie: movie 
-			})
-		})
-
-	}
-})
-
-// admin page
-app.get('/admin/movie', function(req, res){
-console.log('************************/admin/movie*******************************')
-	res.render('admin', {
-		title: 'imooc Admin',
-		movie: {
-			title: '',
-			doctor: '',
-			country: '',
-			year: '',
-			poster: '',
-			flash: '',
-			summary: '',
-			language: ''
-		}
-	})
-})
-// list page
-app.get('/admin/list', function(req, res){
-	Movie.fetch(function(err,movies){
-		if (err) {
-			console.log(err)
-		}
-		res.render('list', {
-			title: 'imooc List',
-			movie: movies
-		})
-	})
-})
-
-//admin post movie
-app.post('/admin/movie/new', function(req, res){
-	console.log('***********************/admin/movie/new********************************')
-	var id = req.body.movie._id
-	var movieObj = req.body.movie
-	var _movie
-	if (id !== 'undefined') {
-		Movie.findById(id, function(err, movie){
-			if (err) {
-				console.log(err)
-			}
-			_movie = _.extend(movie, movieObj)
-			_movie.save(function(err, movie){
-				if (err) {
-					console.log(err)
-				}
-				res.redirect('movie/' + movie._id)
-			})
-		})
-	}else{
-		_movie = new Movie({
-			doctor: movieObj.doctor,
-			title: movieObj.title,
-			country: movieObj.country,
-			language: movieObj.language,
-			year: movieObj.year,
-			poster: movieObj.poster,
-			summary: movieObj.summary,
-			flash: movieObj.flash
-		})
-		_movie.save(function(err, movie){
-			if (err) {
-					console.log(err)
-			}
-			res.redirect('movie/' + movie._id)
-		})
-	}
-})
-
-// list delete movie
-app.delete('/admin/list', function(req, res){
-	console.log('***********************/admin/list?id=********************************')
-	var id = req.query.id
-	if (id) {
-		Movie.remove({_id: id}, function(err, movie){
-			if (err) {
-				console.log(err)
-			}
-			else{
-				res.json({success: 1})
-			}
-		})
-	}
-})

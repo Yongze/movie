@@ -1,0 +1,49 @@
+.container
+	.row
+		.page-header
+			h1= title
+			small Movies
+.navbar.navbar-default.navbar-fixed-bottom
+	.container
+		.navbar-header
+			a.navbar-brand(href="/") Movies
+		if user
+			p.navbar-text.navbar-right
+				span Welcome, #{user.name}
+				span &nbsp;|&nbsp;
+				a.navbar-link(href="/logout") sign out
+		else
+			p.navbar-text.navbar-right
+				a.navbar-link(href="#", data-toggle="modal", data-target="#signupModal") sign up
+				span &nbsp;|&nbsp;
+				a.navbar-link(href="#", data-toggle="modal", data-target="#signinModal") sign in
+#signupModal.modal.fade
+	.modal-dialog
+		.modal-content
+			form(method="post" action="/user/signup")
+				.modal-header sign up
+				.modal-body
+					.form-group
+						label(for="signupName") User name
+						input#signupName.form-control(name="user[name]", type="text")
+					.form-group
+						label(for="signupPassword") Password
+						input#signupPassword.form-control(name="user[password]", type="text")
+				.modal-footer
+					button.btn.btn-default(type="button", data-dismiss="modal") Cancel
+					button.btn.btn-success(type="submit") Submit
+#signinModal.modal.fade
+	.modal-dialog
+		.modal-content
+			form(method="post" action="/user/signin")
+				.modal-header sign in
+				.modal-body
+					.form-group
+						label(for="signinName") User name
+						input#signinName.form-control(name="user[name]", type="text")
+					.form-group
+						label(for="signinPassword") Password
+						input#signinPassword.form-control(name="user[password]", type="text")
+				.modal-footer
+					button.btn.btn-default(type="button", data-dismiss="modal") Cancel
+					button.btn.btn-success(type="submit") Submit					

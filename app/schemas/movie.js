@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-01 00:01:31
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-01 00:10:39
+* @Last Modified time: 2017-08-03 19:11:19
 */
 
 'use strict';
@@ -25,7 +25,7 @@ var MovieSchema = new mongoose.Schema({
 			type: Date,
 			default: Date.now()
 		}
-	},
+	}
 })
 
 MovieSchema.pre('save', function(next){

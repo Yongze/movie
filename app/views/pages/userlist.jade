@@ -6,24 +6,18 @@ block content
 			table.table.table-hover.table-bordered
 				thead
 					tr
-						th Title
-						th Director
-						th Country
-						th Release date
-						//-th 录入时间
+						th Name
+						th Entry time
 						th Check
 						th Update
 						th Delete
 				tbody
-				each item in movie
+				each item in users
 					tr(class="item-id-#{item._id}")
-						td #{item.title}
-						td #{item.doctor}
-						td #{item.country}
-						td #{item.year}
-						//-td #{moment(item.meta.createdAt).format('MM/DD/YYYY')}
+						td #{item.name}
+						td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
 						td: a(target="_blank", href="../movie/#{item._id}") Check
 						td: a(target="_blank", href="../admin/update/#{item._id}") Update
 						td 
 							button.btn.btn-danger.del(type="button", data-id="#{item._id}") Delete
-	script(src="/js/admin.js")
+	//- script(src="/js/admin.js")
