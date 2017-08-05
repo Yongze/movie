@@ -2,13 +2,14 @@
 * @Author: yw850
 * @Date:   2017-08-03 21:28:14
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 20:07:49
+* @Last Modified time: 2017-08-05 20:30:00
 */
 
 'use strict';
 var Index = require('../app/controllers/index.js')
 var User = require('../app/controllers/user.js')
 var Movie = require('../app/controllers/movie.js')
+var Comment = require('../app/controllers/comment.js')
 
 
 module.exports = function(app){
@@ -37,4 +38,8 @@ module.exports = function(app){
 	app.post('/admin/movie', User.signinRequired, User.adminRequired, Movie.save)
 	app.get('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.list)
 	app.delete('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.del)
+
+
+	// comment
+	app.post('/admin/comment', User.signinRequired, Comment.save)
 }

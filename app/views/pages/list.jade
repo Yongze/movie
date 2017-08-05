@@ -22,8 +22,8 @@ block content
 						td #{item.country}
 						td #{item.year}
 						td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
-						td: a(target="_blank", href="../movie/#{item._id}") Check
-						td: a(target="_blank", href="../admin/update/#{item._id}") Update
+						td: a(target="_blank", href="/movie/#{item._id}") Check
+						td: a(target="_blank", href="/admin/movie/update/#{item._id}") Update
 						td 
 							button.btn.btn-danger.del(type="button", data-id="#{item._id}") Delete
 	script(src="/js/admin.js")

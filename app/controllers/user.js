@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:03:18
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 19:46:23
+* @Last Modified time: 2017-08-05 22:50:59
 */
 
 'use strict';
@@ -25,7 +25,7 @@ exports.shouldSignin = function(req, res){
 exports.signup = function(req, res){
 	var _user = req.body.user
 
-	User.find({name:_user.name}, function(err, user){
+	User.findOne({name:_user.name}, function(err, user){
 		if (err) {
 			console.log(err)
 		}

@@ -2,20 +2,30 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:08:01
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 15:15:48
+* @Last Modified time: 2017-08-05 22:44:08
 */
 
 'use strict';
 var Movie = require('../models/movie.js')
+var Comment = require('../models/comment.js')
 var _ = require('underscore')
 // detail page
 exports.detail =  function(req, res){
 	var id = req.params.id
 
 	Movie.findById(id, function(err, movie){
-		res.render('detail', {
-			title: 'imooc ' + movie.title,
-			movie: movie
+		Comment
+		.find({movie: id})
+		.populate('from', 'name')
+		.populate('reply.from reply.to', 'name')
+		.exec(function(err, comments){
+			console.log('comments:')
+			console.log(comments)
+			res.render('detail', {
+				title: 'imooc ' + movie.title,
+				movie: movie,
+				comments: comments
+			})
 		})
 	})
 }
@@ -82,7 +92,7 @@ exports.save = function(req, res){
 				if (err) {
 					console.log(err)
 				}
-				res.redirect('movie/' + movie._id)
+				res.redirect('/movie/' + movie._id)
 			})
 		})
 	}else{
@@ -100,7 +110,7 @@ exports.save = function(req, res){
 			if (err) {
 					console.log(err)
 			}
-			res.redirect('movie/' + movie._id)
+			res.redirect('/movie/' + movie._id)
 		})
 	}
 }
