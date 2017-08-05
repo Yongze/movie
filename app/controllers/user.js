@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:03:18
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 16:11:26
+* @Last Modified time: 2017-08-05 19:46:23
 */
 
 'use strict';
@@ -95,4 +95,22 @@ exports.list = function(req, res){
 			users: users
 		})
 	})
+}
+// middleware for user
+exports.signinRequired = function(req, res, next){
+	var user = req.session.user
+	if (!user) {
+		return res.redirect('/signin')
+	}
+
+	next()
+}
+// middleware for user
+exports.adminRequired = function(req, res, next){
+	var user = req.session.user
+	if (user.role <= 10) {
+		return res.redirect('/signin')
+	}
+
+	next()
 }

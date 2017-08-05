@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 21:28:14
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 15:36:33
+* @Last Modified time: 2017-08-05 20:07:49
 */
 
 'use strict';
@@ -28,13 +28,13 @@ module.exports = function(app){
 	app.get('/logout', User.logout)
 	app.get('/signin', User.shouldSignin)
 	app.get('/signup', User.shouldSignup)
-	app.get('/admin/userlist', User.list)
+	app.get('/admin/user/list', User.signinRequired, User.adminRequired, User.list)
 
 	// Movie
 	app.get('/movie/:id', Movie.detail)
-	app.get('/admin/update/:id', Movie.update)
-	app.get('/admin/movie', Movie.movie)
-	app.get('/admin/list', Movie.list)
-	app.post('/admin/movie/new', Movie.save)
-	app.delete('/admin/list', Movie.del)
+	app.get('/admin/movie/update/:id', User.signinRequired, User.adminRequired, Movie.update)
+	app.get('/admin/movie/new', User.signinRequired, User.adminRequired, Movie.movie)
+	app.post('/admin/movie', User.signinRequired, User.adminRequired, Movie.save)
+	app.get('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.list)
+	app.delete('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.del)
 }

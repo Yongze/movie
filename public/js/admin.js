@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-02 19:34:04
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-02 19:44:54
+* @Last Modified time: 2017-08-05 20:09:06
 */
 
 'use strict';
@@ -15,7 +15,7 @@ $(function(){
 
 		$.ajax({
 			type: 'DELETE',
-			url: '/admin/list?id=' + id
+			url: '/admin/movie/list?id=' + id
 		}).done(function(result){
 			if (result.success === 1) {
 				if (tr.length > 0) {
