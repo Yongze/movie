@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 21:28:14
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 20:30:00
+* @Last Modified time: 2017-08-06 12:14:22
 */
 
 'use strict';
@@ -10,6 +10,7 @@ var Index = require('../app/controllers/index.js')
 var User = require('../app/controllers/user.js')
 var Movie = require('../app/controllers/movie.js')
 var Comment = require('../app/controllers/comment.js')
+var Category = require('../app/controllers/category.js')
 
 
 module.exports = function(app){
@@ -42,4 +43,9 @@ module.exports = function(app){
 
 	// comment
 	app.post('/admin/comment', User.signinRequired, Comment.save)
+
+	// category
+	app.get('/admin/category/new', User.signinRequired, User.adminRequired, Category.new)
+	app.post('/admin/category/save', User.signinRequired, User.adminRequired, Category.save)
+	app.get('/admin/category/list', User.signinRequired, User.adminRequired, Category.list)
 }
