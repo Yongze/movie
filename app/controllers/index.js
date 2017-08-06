@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:01:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 18:53:40
+* @Last Modified time: 2017-08-07 00:52:35
 */
 
 'use strict';
@@ -19,7 +19,7 @@ exports.index = function(req, res){
 			console.log(err)
 		}
 		res.render('index', {
-			title: 'imooc Home',
+			title: 'Home',
 			categories: categories
 		})
 	})
@@ -55,7 +55,7 @@ exports.index = function(req, res){
 // 		}
 // 		var category = categories[0] || {}
 // 		res.render('results', {
-// 			title: 'imooc result list',
+// 			title: 'result list',
 // 			cat: category,
 // 			keyword: category.name
 // 		})
@@ -91,7 +91,7 @@ exports.search = function(req, res){
 
 
 			res.render('results', {
-				title: 'imooc result list',
+				title: 'result list',
 				cat: category.name,
 				currentPage: (page + 1),
 				totalPage: Math.ceil(movies.length / count),//向上进位
@@ -111,7 +111,7 @@ exports.search = function(req, res){
 			}
 			var results = movies.slice(index, index + count)
 			res.render('results', {
-				title: 'imooc result list',
+				title: 'result list',
 				currentPage: (page + 1),
 				totalPage: Math.ceil(movies.length / count),//向上进位
 				movies: results,

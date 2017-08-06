@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:08:01
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 19:41:07
+* @Last Modified time: 2017-08-07 00:54:20
 */
 
 'use strict';
@@ -32,7 +32,7 @@ exports.detail =  function(req, res){
 			console.log('comments:')
 			console.log(comments)
 			res.render('detail', {
-				title: 'imooc ' + movie.title,
+				title: movie.title,
 				movie: movie,
 				comments: comments
 			})
@@ -47,7 +47,7 @@ exports.update = function(req, res){
 		Movie.findById(id, function(err, movie){
 			Category.find({}, function(err, categories){
 				res.render('admin', {
-					title: 'imooc admin update',
+					title: 'admin update',
 					movie: movie,
 					categories: categories
 				})
@@ -62,7 +62,7 @@ exports.movie = function(req, res){
 console.log('************************/admin/movie*******************************')
 	Category.find({}, function(err, categories){
 		res.render('admin', {
-			title: 'imooc Admin',
+			title: 'Admin',
 			movie: {},
 			categories: categories
 		})
@@ -76,7 +76,7 @@ exports.list = function(req, res){
 			console.log(err)
 		}
 		res.render('list', {
-			title: 'imooc List',
+			title: 'List',
 			movie: movies
 		})
 	})

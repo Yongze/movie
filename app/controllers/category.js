@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-06 02:02:54
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 12:28:57
+* @Last Modified time: 2017-08-07 00:52:02
 */
 
 'use strict';
@@ -17,7 +17,7 @@ exports.list = function(req, res){
 			console.log(err)
 		}
 		res.render('categorylist', {
-			title: 'imooc category List',
+			title: 'category List',
 			categories: categories
 		})
 	})
@@ -26,7 +26,7 @@ exports.list = function(req, res){
 exports.new = function(req, res){
 console.log('************************/category/new*******************************')
 	res.render('category_admin', {
-		title: 'imooc Admin add category',
+		title: 'Admin add category',
 		category: {
 
 		}
