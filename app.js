@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-07-31 21:16:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 15:29:35
+* @Last Modified time: 2017-08-06 19:17:44
 */
 
 'use strict';
@@ -23,6 +23,7 @@ app.use(express.bodyParser())
 app.use(express.static('public'))
 app.locals.moment = require('moment')
 app.use(express.cookieParser())
+app.use(express.multipart())
 app.use(express.session({
 	secret: 'imooc',
 	store : new mongoStore({
