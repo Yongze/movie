@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:08:01
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 13:16:10
+* @Last Modified time: 2017-08-06 14:39:28
 */
 
 'use strict';
@@ -36,9 +36,12 @@ exports.update = function(req, res){
 
 	if (id) {
 		Movie.findById(id, function(err, movie){
-			res.render('admin', {
-				title: 'imooc admin update',
-				movie: movie 
+			Category.find({}, function(err, categories){
+				res.render('admin', {
+					title: 'imooc admin update',
+					movie: movie,
+					categories: categories
+				})
 			})
 		})
 
