@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:08:01
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 19:18:54
+* @Last Modified time: 2017-08-06 19:41:07
 */
 
 'use strict';
@@ -16,6 +16,13 @@ var path = require('path')
 exports.detail =  function(req, res){
 	var id = req.params.id
 
+	Movie.update(
+		{_id: id}, 
+		{$inc: {pv: 1}},
+		function(err){
+			console.log(err)
+		}
+	)
 	Movie.findById(id, function(err, movie){
 		Comment
 		.find({movie: id})

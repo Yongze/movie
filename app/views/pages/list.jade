@@ -11,6 +11,7 @@ block content
 						th Country
 						th Release date
 						th Entry time
+						th pv
 						th Check
 						th Update
 						th Delete
@@ -22,6 +23,7 @@ block content
 						td #{item.country}
 						td #{item.year}
 						td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
+						td #{item.pv}
 						td: a(target="_blank", href="/movie/#{item._id}") Check
 						td: a(target="_blank", href="/admin/movie/update/#{item._id}") Update
 						td 
