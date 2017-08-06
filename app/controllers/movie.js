@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:08:01
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 14:39:28
+* @Last Modified time: 2017-08-06 15:46:15
 */
 
 'use strict';
@@ -97,19 +97,34 @@ exports.save = function(req, res){
 	}else{
 		_movie = new Movie(movieObj)
 
-		var categoryID = _movie.category
-
+		var categoryID = movieObj.category
+		var categoryName = movieObj.categoryName
+		
+		console.log(movieObj)
 		_movie.save(function(err, movie){
 			if (err) {
 					console.log(err)
 			}
-
-			Category.findById(categoryID, function(err, category){
-				category.movies.push(movie._id)
-				category.save(function(err, category){
-					res.redirect('/movie/' + movie._id)
+			if (categoryID) {
+				Category.findById(categoryID, function(err, category){
+					category.movies.push(movie._id)
+					category.save(function(err, category){
+						res.redirect('/movie/' + movie._id)
+					})
 				})
-			})
+			}else if(categoryName){
+				var category = new Category({
+					name: categoryName,
+					movies: [movie._id]
+				})
+
+				category.save(function(err, category){
+					movie.category = category._id
+					movie.save(function(err, movie){
+						res.redirect('/movie/' + movie._id)
+					})
+				})
+			}
 		})
 	}
 }
