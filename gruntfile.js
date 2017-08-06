@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 13:15:36
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-03 13:33:33
+* @Last Modified time: 2017-08-06 19:53:13
 */
 
 'use strict';
@@ -26,7 +26,13 @@ module.exports = function(grunt){
 		    }
 		  }
 		},
+		mochaTest: {
+			options: {
+				reporter: 'spec',
 
+			},
+			src: ['test/**/*.js']
+		},
 		nodemon: {
 		  dev: {
 		    options: {
@@ -60,7 +66,10 @@ module.exports = function(grunt){
 	// 入口文件出现改动就会自动重启app的app.js
 	grunt.loadNpmTasks('grunt-contrib-nodemon')
 	grunt.loadNpmTasks('grunt-concurrent')
+	//unit test
+	grunt.loadNpmTasks('grunt-mocha-test')
 	// 不要因为一些语法错误中断了grunt的整个服务
 	grunt.option('force', true)
 	grunt.registerTask('default', ['concurrent'])
+	grunt.registerTask('test', ['mochaTest'])
 }

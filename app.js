@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-07-31 21:16:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 19:17:44
+* @Last Modified time: 2017-08-06 23:08:59
 */
 
 'use strict';
@@ -15,6 +15,26 @@ var mongoStore = require('connect-mongo')(express)
 
 var dbUrl = 'mongodb://localhost/imooc'
 mongoose.connect(dbUrl)
+var fs = require('fs')
+var models_path = __dirname + '/app/models'
+var walk = function (path) {
+	fs
+	.readdirSync(path)
+	.forEach(function(file){
+		var newPath = path + '/' + file
+		var stat = fs.statSync(newPath)
+		if (stat.isFile()) {
+			if (/(.*)\.(js|coffee)/.test(file)) {
+				require(newPath)
+			}
+		}
+		else if (stat.isDirectory()) {
+			walk(newPath)
+		}
+	})
+}
+walk(models_path)
+
 
 app.set('views','./app/views/pages')
 app.set('view engine', 'jade')
