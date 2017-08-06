@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:08:01
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-07 00:54:20
+* @Last Modified time: 2017-08-07 01:35:10
 */
 
 'use strict';
@@ -59,7 +59,6 @@ exports.update = function(req, res){
 
 // admin page
 exports.movie = function(req, res){
-console.log('************************/admin/movie*******************************')
 	Category.find({}, function(err, categories){
 		res.render('admin', {
 			title: 'Admin',
@@ -86,7 +85,6 @@ exports.list = function(req, res){
 
 //admin post movie
 exports.save = function(req, res){
-	console.log('***********************/admin/movie/new********************************')
 
 	var id = req.body.movie._id
 	var movieObj = req.body.movie
@@ -146,7 +144,6 @@ exports.save = function(req, res){
 
 // list delete movie
 exports.del = function(req, res){
-	console.log('***********************/admin/list?id=********************************')
 	var id = req.query.id
 	if (id) {
 		Movie.remove({_id: id}, function(err, movie){

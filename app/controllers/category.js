@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-06 02:02:54
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-07 00:52:02
+* @Last Modified time: 2017-08-07 02:04:17
 */
 
 'use strict';
@@ -22,9 +22,8 @@ exports.list = function(req, res){
 		})
 	})
 }
-// admin page
+// admin new categories
 exports.new = function(req, res){
-console.log('************************/category/new*******************************')
 	res.render('category_admin', {
 		title: 'Admin add category',
 		category: {
@@ -32,23 +31,34 @@ console.log('************************/category/new******************************
 		}
 	})
 }
-//admin post movie
+//admin new or update categories
 exports.save = function(req, res){
-	console.log('***********************/admin/category/new********************************')
 	var _category = req.body.category
 	
-	var category = new Category(_category)
-	category.save(function(err, movie){
-		if (err) {
-				console.log(err)
-		}
-		res.redirect('/admin/category/list')
-	})
+	if (_category._id) {
+		Category.findById(_category._id, function(err, cat){
+			cat.name = _category.name
+			cat.save(function(err, category){
+				if (err) {
+						console.log(err)
+				}
+				res.redirect('/admin/category/list')
+			})
+		})
+	}else{
+		var category = new Category(_category)
+		category.save(function(err, category){
+			if (err) {
+					console.log(err)
+			}
+			res.redirect('/admin/category/list')
+		})
+	}
+	
 }
 
-// list delete movie
+// list delete categories
 exports.del = function(req, res){
-	console.log('***********************/admin/category?id=********************************')
 	var id = req.query.id
 	if (id) {
 		Movie.remove({_id: id}, function(err, movie){
@@ -58,6 +68,21 @@ exports.del = function(req, res){
 			else{
 				res.json({success: 1})
 			}
+		})
+	}
+}
+
+/**********************************Add by my own*********************************************/
+// admin update categories
+exports.update = function(req, res){
+	var id = req.params.id
+
+	if (id) {
+		Category.findById(id, function(err, category){
+			res.render('category_admin', {
+				title: 'admin update',
+				category: category
+			})
 		})
 	}
 }
