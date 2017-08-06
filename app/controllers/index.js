@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:01:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 18:21:43
+* @Last Modified time: 2017-08-06 18:53:40
 */
 
 'use strict';
@@ -64,40 +64,61 @@ exports.index = function(req, res){
 // search page
 exports.search = function(req, res){
 	var catId = req.query.cat
-	var page = parseInt(req.query.p, 10)
+	var page = parseInt(req.query.p, 10) || 0
 	var index = page * count
+	var q = req.query.q
 
-
-	Category
-	.find({
-		_id: catId
-	})
-	.populate({
-		path: 'movies',
-		select: 'title poster'
-	})
-	.exec(function(err, categories){
-		if (err) {
-			console.log(err)
-		}
-		var category = categories[0] || {}
-
-
-		var movies = category.movies || []
-		var results = movies.slice(index, index + count)
-
-
-
-
-		res.render('results', {
-			title: 'imooc result list',
-			cat: category.name,
-			currentPage: (page + 1),
-			totalPage: Math.ceil(movies.length / count),//向上进位
-			movies: results,
-			query: 'cat=' + catId
-
+	if (catId) {
+		Category
+		.find({
+			_id: catId
 		})
-	})
+		.populate({
+			path: 'movies',
+			select: 'title poster'
+		})
+		.exec(function(err, categories){
+			if (err) {
+				console.log(err)
+			}
+			var category = categories[0] || {}
+
+
+			var movies = category.movies || []
+			var results = movies.slice(index, index + count)
+
+
+
+
+			res.render('results', {
+				title: 'imooc result list',
+				cat: category.name,
+				currentPage: (page + 1),
+				totalPage: Math.ceil(movies.length / count),//向上进位
+				movies: results,
+				query: 'cat=' + catId
+
+			})
+		})	
+	}else{
+		Movie
+		.find({
+			title: new RegExp(q + '.*', 'i')  // /q/	//正则模糊匹配
+		})
+		.exec(function(err, movies){
+			if (err) {
+				console.log(err)
+			}
+			var results = movies.slice(index, index + count)
+			res.render('results', {
+				title: 'imooc result list',
+				currentPage: (page + 1),
+				totalPage: Math.ceil(movies.length / count),//向上进位
+				movies: results,
+				query: 'q=' + q,
+				keyword: q
+			})
+		})
+	}
 }
 

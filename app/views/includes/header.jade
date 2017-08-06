@@ -1,8 +1,15 @@
 .container
 	.row
-		.page-header
+		.page-header.clearfix
 			h1= title
-			small Movies
+			.col-md-4
+				small Movies
+			.col-md-8
+				form(method='get', action='/results')
+					.input-group.col-sm-4.pull-right
+						input.form-control(type='text', name='q')
+						span.input-group-btn
+							button.btn.btn-default(type="submit") search
 .navbar.navbar-default.navbar-fixed-bottom
 	.container
 		.navbar-header
