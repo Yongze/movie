@@ -35,8 +35,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "online_win": "set NODE_ENV=online&& node app.js",
-    "online": "NODE_ENV=online node app.js"
+    "online_win": "set NODE_ENV=production&& node app.js",
+    "online": "NODE_ENV=production node app.js"
   },
   "repository": {
     "type": "git",

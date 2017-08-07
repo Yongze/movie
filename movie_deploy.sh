@@ -12,5 +12,8 @@ echo "==================git pull======================"
 git pull
 
 
+echo "===========Install packages===================="
+npm Install
+
 echo "===========编译npm run===================="
 npm run online
