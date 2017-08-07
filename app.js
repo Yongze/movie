@@ -2,16 +2,24 @@
 * @Author: yw850
 * @Date:   2017-07-31 21:16:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 23:08:59
+* @Last Modified time: 2017-08-07 14:07:29
 */
 
 'use strict';
 var express = require('express')
 var port = process.env.PORT || 3000
 var app = express()
-// var path = require('path')
+/*****************************express@4.x upgrade**************************************/
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+// move multiparty to route.js
+// var multiparty = require('connect-multiparty')
+var session = require('express-session')
+var mongoStore = require('connect-mongo')(session)
+var logger = require('morgan')
+var serveStatic = require('serve-static')
+/*****************************express@4.x upgrade**************************************/
 var mongoose = require('mongoose')
-var mongoStore = require('connect-mongo')(express)
 
 var dbUrl = 'mongodb://localhost/imooc'
 mongoose.connect(dbUrl)
@@ -38,25 +46,55 @@ walk(models_path)
 
 app.set('views','./app/views/pages')
 app.set('view engine', 'jade')
-// 中间件能见post的内容初始化成一个对象
-app.use(express.bodyParser())
-app.use(express.static('public'))
 app.locals.moment = require('moment')
-app.use(express.cookieParser())
-app.use(express.multipart())
-app.use(express.session({
+
+
+/*****************************express@4.x upgrade**************************************/
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(cookieParser())
+
+app.use(session({
 	secret: 'imooc',
 	store : new mongoStore({
 		url: dbUrl,
 		connection: 'sessions'
-	})
+	}),
+	resave: false,
+	saveUninitialized: true,
+	// cookie: { secure: true }
 }))
+app.use(serveStatic('public'))
+/*****************************express@3.x**************************************/
+// 中间件能见post的内容初始化成一个对象
+// app.use(express.bodyParser())
+// app.use(express.cookieParser())
+// app.use(express.multipart())
+// app.use(express.session({
+// 	secret: 'imooc',
+// 	store : new mongoStore({
+// 		url: dbUrl,
+// 		connection: 'sessions'
+// 	})
+// }))
+// var mongoStore = require('connect-mongo')(express)
+// app.use(express.static('public'))
 
-if ('development' === app.get('env')) {
+console.log('env:')
+console.log('|' + app.get('env') + '|')
+var env = process.env.NODE_ENV || 'development'
+console.log('|' + env + '|')
+if ('development' === env) {
 	// 屏幕上打印错误信息
 	app.set('showStackError', true)
 	// 'dev' 
-	app.use(express.logger(':method :url :status'))
+	/*****************************express@3.x**************************************/
+	// app.use(express.logger(':method :url :status'))
+	/*****************************express@3.x**************************************/
+	/*****************************express@4.x upgrade**************************************/
+	app.use(logger(':method :url :status'))
+	/*****************************express@4.x upgrade**************************************/
 	// 页面源码格式化后的，而不是压缩
 	app.locals.pretty = true
 	// 通过mongoose debug

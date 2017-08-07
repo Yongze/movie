@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 21:28:14
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-07 02:03:25
+* @Last Modified time: 2017-08-07 13:41:35
 */
 
 'use strict';
@@ -11,8 +11,10 @@ var User = require('../app/controllers/user.js')
 var Movie = require('../app/controllers/movie.js')
 var Comment = require('../app/controllers/comment.js')
 var Category = require('../app/controllers/category.js')
-
-
+/*****************************express@4.x upgrade**************************************/
+var multipart = require('connect-multiparty');
+var multipartMiddleware = multipart();
+/*****************************express@4.x upgrade**************************************/
 module.exports = function(app){
 	// pre handle user
 	app.use(function(req, res, next){
@@ -36,7 +38,7 @@ module.exports = function(app){
 	app.get('/movie/:id', Movie.detail)
 	app.get('/admin/movie/update/:id', User.signinRequired, User.adminRequired, Movie.update)
 	app.get('/admin/movie/new', User.signinRequired, User.adminRequired, Movie.movie)
-	app.post('/admin/movie', User.signinRequired, User.adminRequired, Movie.savePoster, Movie.save)
+	app.post('/admin/movie', multipartMiddleware, User.signinRequired, User.adminRequired, Movie.savePoster, Movie.save)
 	app.get('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.list)
 	app.delete('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.del)
 

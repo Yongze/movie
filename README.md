@@ -24,9 +24,15 @@ npm install should --save
 <!-- express3.x to express4.x -->
 npm install async bcrypt connect-mongo crypto express grunt grunt-concurrent grunt-contrib-jshint grunt-contrib-less grunt-contrib-uglify grunt-contrib-watch grunt-mocha-test grunt-nodemon jade moment mongoose underscore --save
 
+npm install body-parser cookie-parser express-session connect-multiparty --save
+npm install morgan --save
+npm install serve-static --save
+
+
 <!-- how to run the program in cmd -->
 1) 'grunt' to run
 2) 'grunt test' to run the unit test
+3) 'npm run online' or 'npm run online_win' to create publish version
 
 <!-- 
 The folder of libs and upload inside public
