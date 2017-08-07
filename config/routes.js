@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 21:28:14
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-07 13:41:35
+* @Last Modified time: 2017-08-07 17:59:33
 */
 
 'use strict';
@@ -11,10 +11,8 @@ var User = require('../app/controllers/user.js')
 var Movie = require('../app/controllers/movie.js')
 var Comment = require('../app/controllers/comment.js')
 var Category = require('../app/controllers/category.js')
-/*****************************express@4.x upgrade**************************************/
 var multipart = require('connect-multiparty');
 var multipartMiddleware = multipart();
-/*****************************express@4.x upgrade**************************************/
 module.exports = function(app){
 	// pre handle user
 	app.use(function(req, res, next){

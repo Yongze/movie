@@ -13,7 +13,7 @@ git pull
 
 
 echo "===========Install packages===================="
-npm Install
+npm install
 
 echo "===========编译npm run===================="
 npm run online
