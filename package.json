@@ -13,14 +13,6 @@
     "crypto": "0.0.3",
     "express": "^4.15.4",
     "express-session": "^1.15.5",
-    "grunt": "^1.0.1",
-    "grunt-concurrent": "^2.3.1",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-less": "^1.4.1",
-    "grunt-contrib-uglify": "^3.0.1",
-    "grunt-contrib-watch": "^1.0.0",
-    "grunt-mocha-test": "^0.13.2",
-    "grunt-nodemon": "^0.4.2",
     "jade": "^1.11.0",
     "mocha": "^3.5.0",
     "moment": "^2.18.1",
@@ -33,12 +25,18 @@
     "grunt": "^1.0.1",
     "grunt-concurrent": "^2.3.1",
     "grunt-contrib-nodemon": "^0.5.4",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-less": "^1.4.1",
+    "grunt-contrib-uglify": "^3.0.1",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "grunt-nodemon": "^0.4.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "online_win": "set NODE_ENV=online&& grunt",
-    "online": "NODE_ENV=online grunt"
+    "online_win": "set NODE_ENV=online&& node app.js",
+    "online": "NODE_ENV=online node app.js"
   },
   "repository": {
     "type": "git",

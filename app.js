@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-07-31 21:16:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-07 14:07:29
+* @Last Modified time: 2017-08-07 16:08:51
 */
 
 'use strict';
@@ -82,7 +82,7 @@ app.use(serveStatic('public'))
 // app.use(express.static('public'))
 
 console.log('env:')
-console.log('|' + app.get('env') + '|')
+// console.log('|' + app.get('env') + '|')
 var env = process.env.NODE_ENV || 'development'
 console.log('|' + env + '|')
 if ('development' === env) {

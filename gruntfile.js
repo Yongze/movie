@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 13:15:36
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 19:53:13
+* @Last Modified time: 2017-08-07 16:13:00
 */
 
 'use strict';
@@ -58,18 +58,23 @@ module.exports = function(grunt){
 		  }
 		}
 	})
+	console.log('env:')
+	// console.log('|' + app.get('env') + '|')
+	var env = process.env.NODE_ENV || 'development'
+	console.log('|' + env + '|')
+	if ('development' === env) {
+		// 只要有文件有改动，就会重新执行在它里面注册好的任务
+		grunt.loadNpmTasks('grunt-contrib-watch')
+		// 入口文件出现改动就会自动重启app的app.js
+		grunt.loadNpmTasks('grunt-contrib-nodemon')
+		grunt.loadNpmTasks('grunt-concurrent')
+		//unit test
+		grunt.loadNpmTasks('grunt-mocha-test')
+		// 不要因为一些语法错误中断了grunt的整个服务
+		grunt.option('force', true)
+		grunt.registerTask('default', ['concurrent'])
+		grunt.registerTask('test', ['mochaTest'])
+	}
 
 
-
-	// 只要有文件有改动，就会重新执行在它里面注册好的任务
-	grunt.loadNpmTasks('grunt-contrib-watch')
-	// 入口文件出现改动就会自动重启app的app.js
-	grunt.loadNpmTasks('grunt-contrib-nodemon')
-	grunt.loadNpmTasks('grunt-concurrent')
-	//unit test
-	grunt.loadNpmTasks('grunt-mocha-test')
-	// 不要因为一些语法错误中断了grunt的整个服务
-	grunt.option('force', true)
-	grunt.registerTask('default', ['concurrent'])
-	grunt.registerTask('test', ['mochaTest'])
 }
