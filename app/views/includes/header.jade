@@ -1,3 +1,4 @@
+link(href='/css/header.css', rel="stylesheet")
 .container
 	.row
 		.page-header.clearfix
@@ -13,29 +14,38 @@
 .navbar.navbar-default.navbar-fixed-top
 	.container
 		.navbar-header
-			a.navbar-brand(href="/") Movies
+			a.navbar-brand(href="/") 
+				i.fa.fa-film(aria-hidden="true")
+				span  Movies
 		if user
 			p.navbar-text.navbar-right
-				span Welcome, #{user.name}
+				a.navbar-link.header-link(href="#", data-toggle='modal', data-target='#managementModal')
+					span Welcome, #{user.name}
 				span &nbsp;|&nbsp;
-				a.navbar-link(href="/logout") sign out
+				a.navbar-link.header-link(href="/logout")
+					span.fa.fa-sign-out(aria-hidden="true")
+					span  Logout
 		else
 			p.navbar-text.navbar-right
-				a.navbar-link(href="#", data-toggle="modal", data-target="#signupModal") sign up
+				a.navbar-link.header-link(href="#", data-toggle="modal", data-target="#signupModal")
+					span.fa.fa-user-circle-o(aria-hidden="true")
+					span  SignUp
 				span &nbsp;|&nbsp;
-				a.navbar-link(href="#", data-toggle="modal", data-target="#signinModal") sign in
+				a.navbar-link.header-link(href="#", data-toggle="modal", data-target="#signinModal")
+					span.fa.fa-sign-in(aria-hidden="true")
+					span  Login
 #signupModal.modal.fade
 	.modal-dialog
 		.modal-content
 			form(method="post" action="/user/signup")
-				.modal-header sign up
+				.modal-header Sign up
 				.modal-body
 					.form-group
 						label(for="signupName") User name
 						input#signupName.form-control(name="user[name]", type="text")
 					.form-group
 						label(for="signupPassword") Password
-						input#signupPassword.form-control(name="user[password]", type="text")
+						input#signupPassword.form-control(name="user[password]", type="password")
 				.modal-footer
 					button.btn.btn-default(type="button", data-dismiss="modal") Cancel
 					button.btn.btn-success(type="submit") Submit
@@ -43,14 +53,50 @@
 	.modal-dialog
 		.modal-content
 			form(method="post" action="/user/signin")
-				.modal-header sign in
+				.modal-header Sign in
 				.modal-body
 					.form-group
 						label(for="signinName") User name
 						input#signinName.form-control(name="user[name]", type="text")
 					.form-group
 						label(for="signinPassword") Password
-						input#signinPassword.form-control(name="user[password]", type="text")
+						input#signinPassword.form-control(name="user[password]", type="password")
 				.modal-footer
 					button.btn.btn-default(type="button", data-dismiss="modal") Cancel
-					button.btn.btn-success(type="submit") Submit					
+					button.btn.btn-success(type="submit") Submit		
+#managementModal.modal.fade
+	.modal-dialog
+		.modal-content
+			.modal-header
+				i.fa.fa-tachometer(aria-hidden="true")
+				span  Dashboard
+			.modal-body.header-list
+				div.list-unit
+					i.fa.fa-file-video-o(aria-hidden="true")
+						span  Movie
+					ul
+						li
+							a.header-link(href="/admin/movie/list")
+								span Movie list
+						li
+							a.header-link(href="/admin/movie/new")
+								span Add movie
+				div.list-unit
+					i.fa.fa-users(aria-hidden="true")
+						span  User
+					ul
+						li
+							a.header-link(href="/admin/user/list")
+								span User list
+				div.list-unit
+					i.fa.fa-list-ul(aria-hidden="true")
+						span  Category
+					ul
+						li
+							a.header-link(href="/admin/category/list")
+								span Category list
+						li
+							a.header-link(href="/admin/category/new")
+								span Add category
+			.modal-footer
+				button.btn.btn-primary(type="button", data-dismiss="modal") OK

@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+	.container
+		.row
+			form.form-horizontal(method="post", action="/admin/user/save")
+				input(type="hidden", name="user[_id]", value=record._id)
+				.form-group
+					label.col-sm-2.control-label(for="inputUsername") Username
+					.col-sm-10
+						input#inputUsername.form-control(type="text", name="user[name]", value=record.name)
+				if role > 50
+					.form-group
+						label.col-sm-2.control-label(for="inputUserRole") Role
+						.col-sm-3
+							select#inputUserRole.form-control(type="text", name="user[role]", value=record.role)
+								option(value=0, selected=record.role==0) Normal user
+								option(value=1, selected=record.role==1) Verified user
+								option(value=2, selected=record.role==2) Professional user
+								option(value=11, selected=record.role==11) Admin user
+								option(value=51, selected=record.role==51) Super admin user
+				.form-group
+					.col-sm-offset-2.col-sm-10
+					button.btn.btn-default(type="submit") Submit

@@ -1,6 +1,7 @@
 extends ../layout
 
 block content
+	link(href='/css/list.css', rel="stylesheet")
 	.container
 		.row
 			table.table.table-hover.table-bordered
@@ -17,5 +18,5 @@ block content
 						td #{moment(item.meta.createAt).format('MM/DD/YYYY')}
 						td: a(target="_blank", href="/admin/category/update/#{item._id}") Update
 						td 
-							button.btn.btn-danger.del(type="button", data-id="#{item._id}") Delete
+							button.btn.btn-danger.forbidden(type="button", data-id="#{item._id}") Delete
 	//- script(src="/js/admin.js")

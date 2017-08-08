@@ -1,5 +1,5 @@
 {
-  "name": "imooc",
+  "name": "movie",
   "version": "1.0.0",
   "description": "npm install express3 jade moment mongoose\r npm install bower -g\r bower install bootstrap\r npm install underscore",
   "main": "app.js",
@@ -29,7 +29,6 @@
     "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-less": "^1.4.1",
     "grunt-contrib-uglify": "^3.0.1",
-    "grunt-contrib-watch": "^1.0.0",
     "grunt-mocha-test": "^0.13.2",
     "grunt-nodemon": "^0.4.2"
   },
@@ -50,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/Yongze/movie/issues"
   },
-  "homepage": "https://github.com/Yongze/movie#readme"
+  "homepage": "https://github.com/Yongze/movie#readme",
+  "directories": {
+    "test": "test"
+  }
 }

@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 13:15:36
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-07 17:55:43
+* @Last Modified time: 2017-08-07 20:31:48
 */
 
 'use strict';
@@ -58,6 +58,7 @@ module.exports = function(grunt){
 		  }
 		}
 	})
+	var env = process.env.NODE_ENV || 'development'
 	if ('development' === env) {
 		// 只要有文件有改动，就会重新执行在它里面注册好的任务
 		grunt.loadNpmTasks('grunt-contrib-watch')

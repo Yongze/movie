@@ -13,7 +13,4 @@ git pull
 
 
 echo "===========Install packages===================="
-npm install
-
-echo "===========编译npm run===================="
-npm run online
+npm install --production

@@ -27,5 +27,5 @@ block content
 						td: a(target="_blank", href="/movie/#{item._id}") Check
 						td: a(target="_blank", href="/admin/movie/update/#{item._id}") Update
 						td 
-							button.btn.btn-danger.del(type="button", data-id="#{item._id}") Delete
+							button.btn.btn-danger.del.loading(type="button", data-id="#{item._id}") Delete
 	script(src="/js/admin.js")

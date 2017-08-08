@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 13:35:04
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-05 19:33:37
+* @Last Modified time: 2017-08-08 17:11:40
 */
 
 'use strict';
@@ -44,23 +44,23 @@ UserSchema.pre('save', function(next){
 	var user = this
 	if (this.isNew) {
 		this.meta.createAt = this.meta.updateAt = Date.now()
+		bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+			if (err) {
+				return next()
+			}
+			bcrypt.hash(user.password, salt, function(err, hash){
+				if (err) {
+					return next()
+				}
+				user.password = hash
+				next()
+			})
+		})
 	}
 	else{
 		this.meta.updateAt = Date.now()
 	}
-
-	bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
-		if (err) {
-			return next()
-		}
-		bcrypt.hash(user.password, salt, function(err, hash){
-			if (err) {
-				return next()
-			}
-			user.password = hash
-			next()
-		})
-	})
+	next()
 })
 
 UserSchema.methods = {

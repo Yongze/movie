@@ -4,6 +4,10 @@ block content
 	.container
 		.row
 			.col-md-5
+				if msg
+					div.alert(class='alert-#{type}')
+						strong Notice:  
+						span #{msg}
 				form(method="post" action="/user/signin")
 					.modal-body
 						.form-group
