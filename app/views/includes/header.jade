@@ -20,7 +20,7 @@ link(href='/css/header.css', rel="stylesheet")
 		if user
 			p.navbar-text.navbar-right
 				a.navbar-link.header-link(href="#", data-toggle='modal', data-target='#managementModal')
-					span Welcome, #{user.name}
+					span #{user.name}'s Dashboard
 				span &nbsp;|&nbsp;
 				a.navbar-link.header-link(href="/logout")
 					span.fa.fa-sign-out(aria-hidden="true")
