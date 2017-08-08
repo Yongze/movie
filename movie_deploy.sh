@@ -14,3 +14,6 @@ git pull
 
 echo "===========Install packages===================="
 npm install --production
+
+echo "===========Reload nginx===================="
+nginx -s reload
