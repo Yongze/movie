@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:01:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-07 00:52:35
+* @Last Modified time: 2017-08-08 22:46:34
 */
 
 'use strict';
@@ -92,12 +92,11 @@ exports.search = function(req, res){
 
 			res.render('results', {
 				title: 'result list',
-				cat: category.name,
+				keyword: 'Category: ' + category.name.toUpperCase(),
 				currentPage: (page + 1),
 				totalPage: Math.ceil(movies.length / count),//向上进位
 				movies: results,
 				query: 'cat=' + catId
-
 			})
 		})	
 	}else{

@@ -1,11 +1,23 @@
 extends ../layout
 
 block content
+	link(href='/css/results.css', rel="stylesheet")
+	link(href='/css/panel-img.css', rel="stylesheet")
 	.container
 		.row
 			.panel.panel-default
-				.panel-heading
-					h3 #{keyword}
+				div.panel-heading
+					span.keyword #{keyword}
+					ul.pagination.pull-right
+						- for(var i = 0; i < totalPage; i++){
+							- if(currentPage == (i + 1)){
+								li.active
+									span #{currentPage}
+							- }else{
+								li
+									a(href='/results?#{query}&p=#{i}') #{i + 1}
+							- }
+						- }
 				.panel-body
 					if movies && movies.length > 0
 						each item in movies
@@ -14,16 +26,7 @@ block content
 									a(href="/movie/#{item._id}")
 										img(src="#{item.poster}", alt="#{item.title}")
 									.caption
-										h3 #{item.title}
-										p: a.btn.btn-primary(href="/movie/#{item._id}", role="botton")
-											span Watch the trailer
-			ul.pagination
-				- for(var i = 0; i < totalPage; i++){
-					- if(currentPage == (i + 1)){
-						li.active
-							span #{currentPage}
-					- }else{
-						li
-							a(href='/results?#{query}&p=#{i}') #{i + 1}
-					- }
-				- }
+										div.title #{item.title}
+										div.linker
+											p: a.btn.btn-primary(href="/movie/#{item._id}", role="botton")
+												span Watch the trailer

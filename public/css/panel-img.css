@@ -1,0 +1,19 @@
+.title{
+	font-size: 15px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+}
+.keyword{
+	font-size: 20px;
+}
+.thumbnail{
+	min-height: 340px;
+}
+.thumbnail a>img{
+	height: 225px;
+}
+.linker{
+	position: absolute;
+	bottom: 15px;
+}

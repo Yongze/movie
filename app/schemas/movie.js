@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-01 00:01:31
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-06 19:40:14
+* @Last Modified time: 2017-08-08 20:01:24
 */
 
 'use strict';
@@ -16,7 +16,7 @@ var MovieSchema = new mongoose.Schema({
 	summary: String,
 	flash: String,
 	poster: String,
-	year: Number,
+	year: String,
 	pv: {
 		type: Number,
 		default: 0
