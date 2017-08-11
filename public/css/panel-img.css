@@ -1,19 +1,28 @@
-.title{
-	font-size: 15px;
-	text-align: center;
-	overflow: hidden;
-	text-overflow: ellipsis; 
-}
+
 .keyword{
 	font-size: 20px;
 }
-.thumbnail{
-	min-height: 340px;
+.thumbnail {
+	height: 322px;
+}
+.thumbnail .caption{
+	padding: 5px 9px 5px 9px;
+}
+.thumbnail .caption .title{
+	height: 36px;
+	font-size: 14px;
+	text-align: center;
+	overflow: hidden;
+	text-overflow: ellipsis; 
+	line-height: 18px;
 }
 .thumbnail a>img{
 	height: 225px;
 }
 .linker{
-	position: absolute;
-	bottom: 15px;
+	padding: 0 9px 0 9px;
+	width: 100%;
+}
+.linker a{
+	width: 100%;
 }
