@@ -13,27 +13,29 @@ link(href='/css/header.css', rel="stylesheet")
 							button.btn.btn-default(type="submit") search
 .navbar.navbar-default.navbar-fixed-top
 	.container
-		.navbar-header
-			a.navbar-brand(href="/") 
-				i.fa.fa-film(aria-hidden="true")
-				span  Movies
-		if user
-			p.navbar-text.navbar-right
-				a.navbar-link.header-link(href="#", data-toggle='modal', data-target='#managementModal')
-					span #{user.name}'s Dashboard
-				span &nbsp;|&nbsp;
-				a.navbar-link.header-link(href="/logout")
-					span.fa.fa-sign-out(aria-hidden="true")
-					span  Logout
-		else
-			p.navbar-text.navbar-right
-				a.navbar-link.header-link(href="#", data-toggle="modal", data-target="#signupModal")
-					span.fa.fa-user-circle-o(aria-hidden="true")
-					span  SignUp
-				span &nbsp;|&nbsp;
-				a.navbar-link.header-link(href="#", data-toggle="modal", data-target="#signinModal")
-					span.fa.fa-sign-in(aria-hidden="true")
-					span  Login
+		.row
+			.navbar-header.col-xs-12.col-sm-12.col-md-12.col-lg-12
+				a.navbar-brand(href="/") 
+					i.fa.fa-film(aria-hidden="true")
+					span  Movies
+				if user
+					p.navbar-text.pull-right
+						a.navbar-link.header-link(href="#", data-toggle='modal', data-target='#managementModal')
+							span.fa.fa-tachometer(aria-hidden="true")
+							span.hidden-xs  #{user.name}'s Dashboard
+						span &nbsp;|&nbsp;
+						a.navbar-link.header-link(href="/logout")
+							span.fa.fa-sign-out(aria-hidden="true")
+							span  Logout
+				else
+					p.navbar-text.pull-right
+						a.navbar-link.header-link(href="#", data-toggle="modal", data-target="#signupModal")
+							span.fa.fa-user-circle-o(aria-hidden="true")
+							span  SignUp
+						span &nbsp;|&nbsp;
+						a.navbar-link.header-link(href="#", data-toggle="modal", data-target="#signinModal")
+							span.fa.fa-sign-in(aria-hidden="true")
+							span  Login
 #signupModal.modal.fade
 	.modal-dialog
 		.modal-content
