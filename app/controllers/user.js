@@ -2,11 +2,12 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:03:18
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-08 18:55:49
+* @Last Modified time: 2017-08-12 14:54:48
 */
 
 'use strict';
 var User = require('../models/user.js')
+var _ = require('underscore')
 var MSG_account_existed = 'Sorry, the user name has existed in our system.'
 var MSG_permisstion = 'Permisstion deny, please login as an admin.'
 var MSG_permisstion_super = 'Permisstion deny, please login as a super admin.'
@@ -105,7 +106,8 @@ exports.list = function(req, res){
 		res.render('userlist', {
 			title: 'User List',
 			users: users,
-			userId: req.session.user._id
+			userId: req.session.user._id,
+			role: req.session.user.role
 		})
 	})
 }
@@ -133,9 +135,18 @@ exports.superAdminRequired = function(req, res, next){
 	if (user.role <= 50 ) {
 		return res.redirect('/signin?type=danger&msg=' + MSG_permisstion_super)
 	}
-
 	next()
 }
+// middleware for user update his own info
+exports.selfInfoAllowed = function(req, res, next){
+	var user = req.session.user
+	var id = req.params.id
+	if (id !== user._id && user.role <= 50 ) {
+		return res.redirect('/signin?type=danger&msg=' + MSG_permisstion_super)
+	}
+	next()
+}
+
 // admin update user name
 // super admin update username and user role
 exports.update = function(req, res){
@@ -172,9 +183,10 @@ exports.save = function(req, res){
 	console.log(_user)
 
 	User.findById(_user._id, function(err, user){
-		user.name = _user.name
-		user.role = _user.role
-		user.save(function(err, user){
+		var userObj = _.extend(user, _user)
+		// user.name = _user.name
+		// user.role = _user.role
+		userObj.save(function(err, user){
 			if (err) {
 					console.log(err)
 			}

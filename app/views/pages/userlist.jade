@@ -32,5 +32,5 @@ block content
 							if userId == item._id
 								button.btn.btn-warning.forbidden(type="button") Yourself
 							else
-								button.btn.btn-danger.del-user.loading(type="button", data-id="#{item._id}") Delete
+								button.btn.btn-danger.del-user.loading(type="button", data-id="#{item._id}", data-role="#{role}") Delete
 	script(src="/js/admin.js")

@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 21:28:14
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-08 17:21:19
+* @Last Modified time: 2017-08-12 14:51:33
 */
 
 'use strict';
@@ -31,7 +31,7 @@ module.exports = function(app){
 	app.get('/signin', User.shouldSignin)
 	app.get('/signup', User.shouldSignup)
 	app.get('/admin/user/list', User.signinRequired, User.adminRequired, User.list)
-	app.get('/admin/user/update/:id', User.signinRequired, User.adminRequired, User.update)
+	app.get('/admin/user/update/:id', User.signinRequired, User.selfInfoAllowed, User.update)
 	app.post('/admin/user/save', User.signinRequired, User.adminRequired, User.save)
 	app.delete('/admin/user/list', User.signinRequired, User.superAdminRequired, User.del)
 

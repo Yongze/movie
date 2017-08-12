@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-02 19:34:04
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-08 15:51:38
+* @Last Modified time: 2017-08-12 14:17:38
 */
 
 'use strict';
@@ -37,13 +37,19 @@ $(function(){
 	$('.del-user').click(function(e){
 		var target = $(e.target)
 		var id = target.data('id')
+		var role = target.data('role')
 		var tr = $('.item-id-' + id)
 
+		if (role <= 50) {
+			window.location.href = '/signin?type=danger&msg=Permisstion deny, please login as a super admin.'
+		}
 
 		$.ajax({
 			type: 'DELETE',
 			url: '/admin/user/list?id=' + id
 		}).done(function(result){
+			console.log('result::::::::::::::::::::::::::::')
+			console.log(result)
 			if (result.success === 1) {
 				if (tr.length > 0) {
 					tr.remove()
