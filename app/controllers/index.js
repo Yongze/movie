@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-05 15:01:07
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-08 22:46:34
+* @Last Modified time: 2017-08-12 11:45:27
 */
 
 'use strict';
@@ -67,38 +67,79 @@ exports.search = function(req, res){
 	var page = parseInt(req.query.p, 10) || 0
 	var index = page * count
 	var q = req.query.q
+	var totalpage = parseInt(req.query.tp, 10) || 0
 
 	if (catId) {
+		//monogoose pagination
+		if (totalpage == 0) {
+			Category.findById({_id: catId}, function(err, res){
+				if (err) {
+					console.log(err)
+				}
+				totalpage = Math.ceil(res.movies.length / count)//向上进位
+			})
+		}
+
+
 		Category
 		.find({
 			_id: catId
 		})
 		.populate({
-			path: 'movies',
-			select: 'title poster'
+			path: 'movies', 
+			select: 'title poster',
+			options: {
+				limit: count, 
+				skip: index
+			}
 		})
 		.exec(function(err, categories){
 			if (err) {
 				console.log(err)
 			}
 			var category = categories[0] || {}
-
-
 			var movies = category.movies || []
-			var results = movies.slice(index, index + count)
-
-
-
-
 			res.render('results', {
 				title: 'result list',
+				cat: category,
 				keyword: 'Category: ' + category.name.toUpperCase(),
+				query: 'cat=' + catId,
+				movies: movies,
 				currentPage: (page + 1),
-				totalPage: Math.ceil(movies.length / count),//向上进位
-				movies: results,
-				query: 'cat=' + catId
+				totalPage: totalpage
 			})
-		})	
+		})
+		//self defined pagination
+		// Category
+		// .find({
+		// 	_id: catId
+		// })
+		// .populate({
+		// 	path: 'movies',
+		// 	select: 'title poster'
+		// })
+		// .exec(function(err, categories){
+		// 	if (err) {
+		// 		console.log(err)
+		// 	}
+		// 	var category = categories[0] || {}
+
+
+		// 	var movies = category.movies || []
+		// 	var results = movies.slice(index, index + count)
+
+
+
+
+		// 	res.render('results', {
+		// 		title: 'result list',
+		// 		keyword: 'Category: ' + category.name.toUpperCase(),
+		// 		currentPage: (page + 1),
+		// 		totalPage: Math.ceil(movies.length / count),//向上进位
+		// 		movies: results,
+		// 		query: 'cat=' + catId
+		// 	})
+		// })	
 	}else{
 		Movie
 		.find({

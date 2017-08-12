@@ -2,7 +2,7 @@
 * @Author: yw850
 * @Date:   2017-08-03 13:35:04
 * @Last Modified by:   yw850
-* @Last Modified time: 2017-08-08 17:11:40
+* @Last Modified time: 2017-08-12 13:50:28
 */
 
 'use strict';
@@ -59,8 +59,8 @@ UserSchema.pre('save', function(next){
 	}
 	else{
 		this.meta.updateAt = Date.now()
+		next()
 	}
-	next()
 })
 
 UserSchema.methods = {

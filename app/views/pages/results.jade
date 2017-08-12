@@ -15,7 +15,7 @@ block content
 									span #{currentPage}
 							- }else{
 								li
-									a(href='/results?#{query}&p=#{i}') #{i + 1}
+									a(href='/results?#{query}&p=#{i}&tp=#{totalPage}') #{i + 1}
 							- }
 						- }
 				.panel-body
